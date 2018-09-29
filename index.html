@@ -200,8 +200,8 @@
         if (positionArr[i][j]) {
           color = blockNumToColor(positionArr[i][j]);
           positionObjArr.push({
-            x: i * l - j * r + r,
-            y: j * (l * 0.9) + r,
+            x: j * l - i * r + r,
+            y: i * (l * 0.9) + r,
           })
         }
       }
@@ -332,11 +332,17 @@
     for (; str.length < len; str += Math.random().toString(36).substr(2));
     return str.substr(0, len);
   }
+  let mid = 0;
   function flushNextModule() {
     stage.dispatchEvent(`removeBlock-next${nextModuleId}`);
     nextModuleId = getRandomStr(8);
+    mid++;
+    if (mid === modules.length) {
+      mid = 0;
+    }
+    console.log(modules[mid])
     addModule(
-      modules[Math.floor(Math.random() * modules.length)],
+      modules[mid],
       `next${nextModuleId}`
     );
   }
